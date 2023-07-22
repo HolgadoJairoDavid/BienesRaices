@@ -1,7 +1,9 @@
 <script setup>
-
+import { RouterView } from "vue-router";
 </script>
 
 <template>
- <div>Bienvenidos a Bienes Raíces</div>
+  <div>
+    <RouterView />
+  </div>
 </template>
