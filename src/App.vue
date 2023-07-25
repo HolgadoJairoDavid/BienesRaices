@@ -1,6 +1,9 @@
 <script setup>
 import { RouterView } from "vue-router";
-</script>
+import { useAuthStore } from "./stores/auth";
+
+const authStore = useAuthStore()
+</script> 
 
 <template>
   <v-card elevation="3" max-width="1200" class="mx-auto">
@@ -15,7 +18,21 @@ import { RouterView } from "vue-router";
         </template>
         
         <template v-slot:append>
+          <div v-if="authStore.isAuth">
+            <v-btn
+          :to="{name: 'admin-propiedades'}"
+          >
+            Admin
+          </v-btn>
           <v-btn
+          @click="authStore.logOut"
+          >
+            Cerrar Sesión
+          </v-btn>
+          </div>
+
+          <div v-else>
+            <v-btn
           :to="{name: 'home'}"
           >
             Inicio
@@ -25,6 +42,7 @@ import { RouterView } from "vue-router";
           >
             Iniciar Sesión
           </v-btn>
+          </div>
         </template>
       </v-app-bar>
       <v-main>
