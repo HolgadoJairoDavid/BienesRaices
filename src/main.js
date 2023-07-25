@@ -2,6 +2,10 @@ import "./assets/main.css";
 
 import { createApp } from "vue";
 import { createPinia } from "pinia";
+
+// materialdesign
+
+import '@mdi/font/css/materialdesignicons.css'
 // vuetify
 import "vuetify/styles";
 import { createVuetify } from "vuetify";

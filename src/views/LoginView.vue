@@ -1,13 +1,15 @@
 <script setup>
 import { useForm, useField } from "vee-validate";
 import { loginSchema as validationSchema } from "../validate/loginSchema";
-import { useFirebaseAuth } from "vuefire";
+import { useAuthStore } from "../stores/auth";
 const { handleSubmit } = useForm({ validationSchema });
 const email = useField("email");
 const password = useField("password");
-const correoAuth = useFirebaseAuth()
+const authStore = useAuthStore()
 
-const submit = handleSubmit(() => {});
+const submit = handleSubmit((values) => {
+  authStore.login(values)
+});
 </script>
 <template>
   <v-card flat max-width="600" class="mx-auto my-10">
@@ -17,6 +19,14 @@ const submit = handleSubmit(() => {});
     <v-card-subtitle class="text-h5">
       Inicia Sesión con tu cuenta
     </v-card-subtitle>
+
+    <v-alert 
+    v-if="authStore.hasError"
+    class="my-5"
+    type="error"
+    :title="authStore.errorMessage"
+    >
+    </v-alert>
 
     <v-form class="mt-5">
       <v-text-field
