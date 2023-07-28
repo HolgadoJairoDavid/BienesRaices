@@ -1,14 +1,50 @@
 <script setup>
+import usePropiedades from "@/composables/usePropiedades";
 
+const { propiedadesCollection, priceProperty } = usePropiedades();
 </script>
 
 <template>
-    <h2 class="text-center text-h3 my-5 font-weight-bold">Admin Panel</h2>
-    <v-btn
-    color="blue"
-    variant="flat"
-    :to="{name: 'nueva-propiedad'}"
-    >
-        Nueva Propiedad
-    </v-btn>
+  <h2 class="text-center text-h3 my-5 font-weight-bold">Admin Panel</h2>
+  <v-btn color="blue" variant="flat" :to="{ name: 'nueva-propiedad' }">
+    Nueva Propiedad
+  </v-btn>
+
+  <v-card class="mx-auto mt-10" flat>
+    <v-list>
+        <v-list-item
+        v-for="propiedad in propiedadesCollection"
+        :key="propiedad.id"
+
+        >
+
+        <template v-slot:prepend>
+            <v-list-item-media :start="true">
+                <img :src="propiedad.imagen" alt="" width="180">
+            </v-list-item-media>
+        </template>
+
+        <v-list-item-title>{{ propiedad.titulo }}</v-list-item-title>
+        <v-list-item-subtitle>{{ priceProperty(propiedad.precio) }}</v-list-item-subtitle>
+
+        <template v-slot:append>
+            <v-btn
+            class="mr-2"
+            color="info"
+            flat
+            :to="{name: 'editar-propiedad', params: {id: propiedad.id}}"
+            >
+                Editar
+            </v-btn>
+            <v-btn
+            color="red-darken-3"
+            flat
+            >
+                Eliminar
+            </v-btn>
+        </template>
+
+        </v-list-item>
+    </v-list>
+  </v-card>
 </template>
